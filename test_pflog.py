@@ -95,6 +95,10 @@ class testPflog(unittest.TestCase):
         assert lines[0] == '\t'.join(
             [str(i) for i in [2, 3, 1]]) + '\n', "Failed test of repeated ind=-1"
 
+    def testXprint(self):
+        # I don't have any idea how to write this test in a reasonable amount of time
+        pass
+
 
 if __name__ == "__main__":
     unittest.main()

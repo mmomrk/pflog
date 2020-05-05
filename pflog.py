@@ -1,6 +1,48 @@
 #!/usr/bin/env python3
 
 import collections
+import sys
+
+levels = ['TRACE', 'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL', 'NONE']
+# Not sure if I need to code this further before I find out the right lib for this
+errfile = sys.stderr
+critfile = errfile
+loglevel = 'TRACE'
+
+
+def tprint(*args, **kwargs):
+    if levels.index(loglevel) < 1:
+        print("TRACE: ", *args, **kwargs)
+
+
+def dprint(*args, **kwargs):
+    if levels.index(loglevel) < 2:
+        print("DEBUG: ", *args, **kwargs)
+
+
+def iprint(*args, **kwargs):
+    if levels.index(loglevel) < 3:
+        print("INFO: "*args, **kwargs)
+
+
+def wprint(*args, **kwargs):
+    if levels.index(loglevel) < 4:
+        print("WARNING: ", *args, **kwargs)
+
+
+def eprint(*args, **kwargs):
+    if levels.index(loglevel) < 5:
+        print("ERROR: ", *args, **kwargs, file=sys.stderr)
+
+
+def cprint(*args, **kwargs):
+    if levels.index(loglevel) < 6:
+        print("CRITICAL: ", *args, **kwargs, file=critfile)
+
+
+def nprint(*args, **kwargs):
+    # We are listening to you and will make everything possible to solve the issue
+    pass
 
 
 class Pflog():
@@ -40,11 +82,11 @@ class Pflog():
         # requests = sorted(inamesDict.items(), key=lambda t : t[1])
         # print ("Sorted requests are", requests)
         # for cand in requests:
-        print("Ginput:", inamesDict)
+        #print("Ginput:", inamesDict)
         fillers = []
         for cand in inamesDict.items():
-            print(cand)
-            print(ret)
+            # print(cand)
+            # print(ret)
             r = cand[1]
             name = cand[0]
             if r == 0:
@@ -63,7 +105,7 @@ class Pflog():
             else:
                 if r >= 0:
                     for r1 in range(r+1, n):
-                        print("trying ", r1)
+                        #print("trying ", r1)
                         if ret[r1] == "":
                             ret[r1] = name
                             break
@@ -72,9 +114,9 @@ class Pflog():
                               name+". Will put it to a free unclaimed column")
                         fillers.append(name)
                 else:  # r is < 0 for sure
-                    print("Running now on ", list(range(n+r-1, -1, -1)))
+                    #print("Running now on ", list(range(n+r-1, -1, -1)))
                     for r1 in range(n+r-1, -1, -1):
-                        print("trying ", r1)
+                        #print("trying ", r1)
                         if ret[r1] == "":
                             ret[r1] = name
                             break
@@ -87,7 +129,7 @@ class Pflog():
             if n == "":
                 ret[i] = fillers[fj]
                 fj += 1
-        print("Compiled ret:", ret)
+        #print("Compiled ret:", ret)
         return ret
 
     def asd(self, val, nam, ind=0):
@@ -99,7 +141,7 @@ class Pflog():
             self.firstLoop = False
 
             self.newlineName = self.prevName
-            print("rearrange")
+            # print("rearrange")
             self.finalNameOrder = Pflog.rearrange(self.names)
             self.ofle = open(self.fname, 'w')
             self.ofle.write(Pflog.toWrStr(self.finalNameOrder, {
