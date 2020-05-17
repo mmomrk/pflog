@@ -22,7 +22,7 @@ def dprint(*args, **kwargs):
 
 def iprint(*args, **kwargs):
     if levels.index(loglevel) < 3:
-        print("INFO: "*args, **kwargs)
+        print("INFO: ", *args, **kwargs)
 
 
 def wprint(*args, **kwargs):
@@ -54,6 +54,7 @@ class Pflog():
         self.newlineName = ""
         self.capacity = 0
         self.finalNameOrder = []
+        self.ofle = None
 
     @staticmethod
     def swap(ilist, pair):
@@ -172,4 +173,5 @@ class Pflog():
         # print (self.names)
 
     def close(self):
-        self.ofle.close()
+        if self.ofle:
+            self.ofle.close()
