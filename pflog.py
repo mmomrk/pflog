@@ -9,6 +9,19 @@ errfile = sys.stderr
 critfile = errfile
 loglevel = 'TRACE'
 
+# Thanks 287871
+
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 
 def tprint(*args, **kwargs):
     if levels.index(loglevel) < 1:
@@ -17,27 +30,32 @@ def tprint(*args, **kwargs):
 
 def dprint(*args, **kwargs):
     if levels.index(loglevel) < 2:
-        print("DEBUG: ", *args, **kwargs)
+        print(bcolors.HEADER + "DEBUG: ", *args, **kwargs)
+        print(bcolors.ENDC, end='')
 
 
 def iprint(*args, **kwargs):
     if levels.index(loglevel) < 3:
-        print("INFO: ", *args, **kwargs)
+        print(bcolors.OKGREEN+"INFO: ", *args, **kwargs)
+        print(bcolors.ENDC, end='')
 
 
 def wprint(*args, **kwargs):
     if levels.index(loglevel) < 4:
-        print("WARNING: ", *args, **kwargs)
+        print(bcolors.WARNING + "WARNING: ", *args, **kwargs)
+        print(bcolors.ENDC, end='')
 
 
 def eprint(*args, **kwargs):
     if levels.index(loglevel) < 5:
-        print("ERROR: ", *args, **kwargs, file=sys.stderr)
+        print(bcolors.FAIL + "ERROR: ", *args, **kwargs, file=sys.stderr)
+        print(bcolors.ENDC, end='')
 
 
 def cprint(*args, **kwargs):
     if levels.index(loglevel) < 6:
-        print("CRITICAL: ", *args, **kwargs, file=critfile)
+        print(bcolors.UNDERLINE + "CRITICAL: ", *args, **kwargs, file=critfile)
+        print(bcolors.ENDC, end='')
 
 
 def nprint(*args, **kwargs):
